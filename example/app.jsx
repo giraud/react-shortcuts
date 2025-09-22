@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import createClass from 'create-react-class'
 import ReactDOMFactories from 'react-dom-factories'
 
-let { Shortcuts } = require('../src')
+import { Shortcuts as ImShortcuts } from '../src/index.js'
 
-Shortcuts = React.createFactory(Shortcuts)
+const Shortcuts = React.createFactory(ImShortcuts)
 const { button, div, h1, p } = ReactDOMFactories
 
 export default createClass({

@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './main.less'
 import keymap from './keymap'
-import App from './app'
-import { ShortcutManager } from '../src'
+import { ShortcutManager } from '../src/index.js'
+import App from './app.jsx'
+import './main.css'
 
 const shortcutManager = new ShortcutManager(keymap)
 

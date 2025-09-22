@@ -1,6 +1,8 @@
 # OS garbage
 .DS_Store
 Thumbs.db
+/.idea
+.node-version
 
 # built sources
 dist/

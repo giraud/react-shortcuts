@@ -113,7 +113,10 @@ class ShortcutManager extends EventEmitter {
 
     findShortcutName(keyName, componentName) {
         invariant(keyName, "findShortcutName: keyName argument is not defined or falsy.")
-        invariant(componentName, "findShortcutName: componentName argument is not defined or falsy.")
+        invariant(
+            componentName,
+            "findShortcutName: componentName argument is not defined or falsy.",
+        )
 
         const cursor = this._keymap[componentName]
         const result = this._parseShortcutKeyName(cursor, keyName)

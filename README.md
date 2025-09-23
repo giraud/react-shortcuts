@@ -1,14 +1,10 @@
-React Shortcuts
-=========
+# React Shortcuts
 
 **Manage keyboard shortcuts from one place.**
 
 [![Build Status](https://travis-ci.org/avocode/react-shortcuts.svg)][travis]
 
-
-Intro
-------
-
+## Intro
 
 Managing keyboard shortcuts can sometimes get messy. Or always, if not implemented the right way.
 
@@ -21,9 +17,7 @@ Real problems:
 - It's more difficult to implement feature like user-defined shortcuts
 - You can't easily get allthe application shortcuts and display it (e.g. in settings)
 
-
-**React shortcuts to the rescue!**
------------
+## **React shortcuts to the rescue!**
 
 With `react-shortcuts` you can declaratively manage shortcuts for each one of your React components.
 
@@ -33,19 +27,13 @@ With `react-shortcuts` you can declaratively manage shortcuts for each one of yo
 - `ShortcutManager` which handles `keymap`
 - `<Shortcut>` component for handling shortcuts
 
-
-Try online demo
--------
+## Try online demo
 
 [![Edit l40jjo48nl](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/l40jjo48nl)
 
-
-Quick tour
-----------
-
+## Quick tour
 
 #### 1. `npm install react-shortcuts`
-
 
 #### 2. **Define application shortcuts**
 
@@ -55,16 +43,16 @@ Create a new JS, Coffee, JSON or CSON file wherever you want (which probably is 
 
 ```json
 {
- "Namespace": {
-   "Action": "Shortcut",
-   "Action_2": ["Shortcut", "Shortcut"],
-   "Action_3": {
-     "osx": "Shortcut",
-     "windows": ["Shortcut", "Shortcut"],
-     "linux": "Shortcut",
-     "other": "Shortcut"
-   }
- }
+    "Namespace": {
+        "Action": "Shortcut",
+        "Action_2": ["Shortcut", "Shortcut"],
+        "Action_3": {
+            "osx": "Shortcut",
+            "windows": ["Shortcut", "Shortcut"],
+            "linux": "Shortcut",
+            "other": "Shortcut"
+        }
+    }
 }
 ```
 
@@ -76,34 +64,31 @@ Create a new JS, Coffee, JSON or CSON file wherever you want (which probably is 
   (`command+shift+k`) or sequences (`up up down down left right left right B A`).
 
 > **Combokeys** is used under the
-  hood for handling the shortcuts. [Read more][mousetrap] about how you can
-  specify keys.
-
+> hood for handling the shortcuts. [Read more][mousetrap] about how you can
+> specify keys.
 
 ##### Example `keymap` definition:
 
-
 ```javascript
 export default {
-  TODO_ITEM: {
-    MOVE_LEFT: 'left',
-    MOVE_RIGHT: 'right',
-    MOVE_UP: ['up', 'w'],
-    DELETE: {
-      osx: ['command+backspace', 'k'],
-      windows: 'delete',
-      linux: 'delete',
+    TODO_ITEM: {
+        MOVE_LEFT: "left",
+        MOVE_RIGHT: "right",
+        MOVE_UP: ["up", "w"],
+        DELETE: {
+            osx: ["command+backspace", "k"],
+            windows: "delete",
+            linux: "delete",
+        },
     },
-  },
 }
-
 ```
 
 Save this file as `keymap.[js|coffee|json|cson]` and require it into your main
 file.
 
 ```javascript
-import keymap from './keymap'
+import keymap from "./keymap"
 ```
 
 #### 3. Rise of the ShortcutsManager
@@ -113,8 +98,8 @@ object. `ShortcutsManager` can’t parse JSON and will certainly not be happy
 about the situation.
 
 ```javascript
-import keymap from './keymap'
-import { ShortcutManager } from 'react-shortcuts'
+import keymap from "./keymap"
+import { ShortcutManager } from "react-shortcuts"
 
 const shortcutManager = new ShortcutManager(keymap)
 
@@ -128,13 +113,13 @@ shortcutManager.setKeymap(keymap)
 
 ```javascript
 class App extends React.Component {
-  getChildContext() {
-    return { shortcuts: shortcutManager }
-  }
+    getChildContext() {
+        return { shortcuts: shortcutManager }
+    }
 }
 
 App.childContextTypes = {
-  shortcuts: PropTypes.object.isRequired
+    shortcuts: PropTypes.object.isRequired,
 }
 ```
 
@@ -178,38 +163,35 @@ class TodoItem extends React.Component {
 ```
 
 > The `<Shortcuts>` component creates a `<shortcuts>` element in HTML, binds
-  listeners and adds tabIndex to the element so that it’s focusable.
-  `_handleShortcuts` is invoked when some of the defined shortcuts fire.
+> listeners and adds tabIndex to the element so that it’s focusable.
+> `_handleShortcuts` is invoked when some of the defined shortcuts fire.
 
 ## Custom props for `<Shortcuts>` component
 
 - `handler`: func
-  - callback function that will fire when a shortcut occurs
+    - callback function that will fire when a shortcut occurs
 - `name`: string
-  - The name of the namespace specified in keymap file
+    - The name of the namespace specified in keymap file
 - `tabIndex`: number
-  - Default is `-1`
+    - Default is `-1`
 - `className`: string
 - `eventType`: string
-  - Just for gourmets (keyup, keydown, keypress)
+    - Just for gourmets (keyup, keydown, keypress)
 - `stopPropagation`: bool
 - `preventDefault`: bool
 - `targetNodeSelector`: DOM Node Selector like `body` or `.my-class`
-  - Use this one with caution. It binds listeners to the provided string instead
-  of the component.
+    - Use this one with caution. It binds listeners to the provided string instead
+      of the component.
 - `global`: bool
-  - Use this when you have some global app wide shortcuts like `CMD+Q`.
+    - Use this when you have some global app wide shortcuts like `CMD+Q`.
 - `isolate`: bool
-  - Use this when a child component has React's key handler (onKeyUp, onKeyPress, onKeyDown). Otherwise, React Shortcuts stops propagation of that event due to nature of event delegation that React uses internally.
+    - Use this when a child component has React's key handler (onKeyUp, onKeyPress, onKeyDown). Otherwise, React Shortcuts stops propagation of that event due to nature of event delegation that React uses internally.
 - `alwaysFireHandler`: bool
-  - Use this when you want events keep firing on the focused input elements. 
-
+    - Use this when you want events keep firing on the focused input elements.
 
 ## Thanks, Atom
 
-
 This library is inspired by [Atom Keymap].
-
 
 [Atom Keymap]: https://github.com/atom/atom-keymap/
 [travis]: https://travis-ci.org/avocode/react-shortcuts

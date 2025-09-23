@@ -1,14 +1,16 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import keymap from './keymap'
-import { ShortcutManager } from '../src/index.js'
-import App from './app.jsx'
-import './main.css'
+import React from "react"
+import { createRoot } from "react-dom/client"
+import { ShortcutManager } from "../src/index.js"
+import keymap from "./keymap"
+import App from "./app.jsx"
+import "./main.css"
 
 const shortcutManager = new ShortcutManager(keymap)
 
 // Just for testing
 window.shortcutManager = shortcutManager
 
-const element = React.createElement(App, { shortcuts: shortcutManager })
-ReactDOM.render(element, document.getElementById('app'))
+let rootElement = document.getElementById("app")
+let root = createRoot(rootElement)
+
+root.render(<App shortcuts={{ shortcuts: shortcutManager }} show={true} />)

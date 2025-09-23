@@ -4,13 +4,11 @@ import Combokeys from "combokeys"
 import PropTypes from "prop-types"
 
 import helpers from "../helpers"
+import { ShortcutContext } from "./shortcuts-context.js"
 
 export default class extends React.Component {
     static displayName = "Shortcuts"
-
-    static contextTypes = {
-        shortcuts: PropTypes.object.isRequired,
-    }
+    static contextType = ShortcutContext
 
     static propTypes = {
         children: PropTypes.node,
@@ -68,7 +66,9 @@ export default class extends React.Component {
     _bindShortcuts = (shortcutsArr) => {
         const element = this._getElementToBind()
         element.setAttribute("tabindex", this.props.tabIndex)
-        this._combokeys = new Combokeys(element, { storeInstancesGlobally: false })
+        this._combokeys = new Combokeys(element, {
+            storeInstancesGlobally: false,
+        })
         this._decorateCombokeys()
         this._combokeys.bind(shortcutsArr, this._handleShortcuts, this.props.eventType)
 
@@ -204,8 +204,7 @@ export default class extends React.Component {
                     this._domNode = node
                 }}
                 tabIndex={this.props.tabIndex}
-                className={this.props.className}
-            >
+                className={this.props.className}>
                 {this.props.children}
             </div>
         )
